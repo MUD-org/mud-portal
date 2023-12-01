@@ -1,7 +1,9 @@
 import React, {useRef} from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AppDrawer.css'; // Import your CSS file
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Stack, Box, Divider, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Typography, IconButton } from '@mui/material';
+import AppRouter from '../routes/AppRouter';
 
 interface AppDrawerProps {
     open: boolean;
@@ -10,6 +12,8 @@ interface AppDrawerProps {
 
 const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
     const drawerRef = useRef<HTMLDivElement>(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const appContentWidth = () => {
         if (!open)
@@ -26,6 +30,17 @@ const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
                 onOpen={() => ""}>
                 <Stack ref={drawerRef}>
                     <List>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => navigate('/client')}>
+                                <ListItemText primary="Client (Debug)" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => navigate('/featured')}>
+                                <ListItemText primary="Featured Games" />
+                            </ListItemButton>
+                        </ListItem>
+                    <Divider/>
                         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
@@ -46,7 +61,7 @@ const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
                     </List>
                 </Stack>
             </SwipeableDrawer>
-            { open
+            { open && location.pathname !== '/client'
                 ? (
                     <Box
                         className="content"
@@ -64,19 +79,10 @@ const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
                                     <CancelIcon />
                                 </IconButton>
                             </Stack>
-                            <Typography color="textPrimary">
-                                It is a long established fact that a reader will be distracted by the readable content of a 
-                                page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less 
-                                normal distribution of letters, as opposed to using 'Content here, content here', making it
-                                 look like readable English. Many desktop publishing packages and web page editors now use 
-                                 Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many
-                                  web sites still in their infancy. Various versions have evolved over the years, sometimes by 
-                                  accident, sometimes on purpose (injected humour and the like).
-                            </Typography>
+                            <AppRouter/>
                     </Box>
                 )
                 : null}
-            
         </div>
     );
 };

@@ -5,6 +5,8 @@ import AppDrawer from '../components/AppDrawer';
 import { Box, Tabs, Tab, Divider } from '@mui/material';
 import GameDrawer from '../components/GameDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
+import AppRouter from '../routes/AppRouter';
+import { BrowserRouter } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -31,7 +33,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <AppDrawer open={appDrawerOpen} onClose={() => setAppDrawerOpen(false)}/>
+        <BrowserRouter>
+          <AppDrawer open={appDrawerOpen} onClose={() => setAppDrawerOpen(false)}/>
+        </BrowserRouter>
         <Box sx={{display: 'flex', width: '100%', backgroundColor: theme => theme.palette.background.default }}>
           <Box component="main" sx={{ flexGrow: 1 }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

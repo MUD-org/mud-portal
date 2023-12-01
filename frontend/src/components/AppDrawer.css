@@ -1,5 +1,5 @@
 .app-drawer .content {
-  position: fixed;
+  position: absolute;
   top: 2em;
   bottom: 2em;
   border-radius: 0 1em 1em 0;

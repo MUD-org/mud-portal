@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useMemo} from 'react';
+import React, {useRef} from 'react';
 import './AppDrawer.css'; // Import your CSS file
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Stack, Box, Divider, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Typography, IconButton } from '@mui/material';
@@ -9,31 +9,13 @@ interface AppDrawerProps {
 }
 
 const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
-    const [drawerWidth, setDrawerWidth] = useState<number>(0);
     const drawerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        // Measure and update width after the component mounts
-        const handleResize = () => {
-            if (drawerRef.current) {
-                setDrawerWidth(drawerRef.current.getBoundingClientRect().width);
-            }
-        }
-
-        handleResize();
-
-        // Optional: Add event listener for window resize if dynamic updates are needed
-        window.addEventListener('resize', handleResize);
-
-        // Cleanup
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    const appContentWidth = useMemo(() => {
+    const appContentWidth = () => {
         if (!open)
             return 0;
-        return `calc(100% - ${drawerWidth + 60}px)`;
-    }, [open, drawerWidth])
+        return `calc(100% - ${(drawerRef?.current?.getBoundingClientRect().width || 0) + 60}px)`;
+    }
 
     return (
         <div className="app-drawer">
@@ -69,8 +51,8 @@ const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
                     <Box
                         className="content"
                         sx={{
-                            left: drawerWidth, 
-                            width: appContentWidth,
+                            left: drawerRef?.current?.getBoundingClientRect().width || 0, 
+                            width: appContentWidth(),
                             backgroundColor: theme => theme.palette.background.default
                         }}>
                             <Stack 

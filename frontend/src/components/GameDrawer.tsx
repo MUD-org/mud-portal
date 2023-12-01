@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, IconButton, Stack, SwipeableDrawer } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import './GameDrawer.css';
 
 const GameDrawer: React.FC = () => {
@@ -28,7 +28,7 @@ const GameDrawer: React.FC = () => {
         >
             <Stack direction="column" padding="0.5em" spacing="0.25em">
                 <IconButton>
-                    <AddIcon />
+                    <AddCircleIcon color="primary" />
                 </IconButton>
                 <Divider/>
             </Stack>

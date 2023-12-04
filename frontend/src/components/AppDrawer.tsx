@@ -1,6 +1,6 @@
 import React from 'react';
 import './AppDrawer.css'; // Import your CSS file
-import { AppBar, Dialog, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Slide, Toolbar } from '@mui/material';
+import { AppBar, Box, Dialog, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Slide, Toolbar } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 import CloseIcon from '@mui/icons-material/Close';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
@@ -8,6 +8,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import AppRouter from '../routes/AppRouter';
+import AccountWidget from './AccountWidget';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -47,6 +48,8 @@ const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
                             >
                             <CloseIcon />
                         </IconButton>
+                        <Box sx={{flexGrow: 1}}></Box>
+                        <AccountWidget/>
                     </Toolbar>
                 </AppBar>
                 {isDesktop && (

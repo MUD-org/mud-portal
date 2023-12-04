@@ -5,3 +5,9 @@
   border-radius: 0 1em 1em 0;
   z-index: 2000;
 }
+
+.drawer-list {
+  width: 15vw;
+  min-width: 150px;
+  overflow-y: hidden;
+}

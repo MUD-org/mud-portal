@@ -7,6 +7,7 @@ import GameDrawer from '../components/GameDrawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import AppRouter from '../routes/AppRouter';
 import { BrowserRouter } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 
 const theme = createTheme({
   palette: {
@@ -30,13 +31,18 @@ const theme = createTheme({
 function App() {
   const [appDrawerOpen, setAppDrawerOpen] = useState<boolean>(false);
 
+  const handlers = useSwipeable({
+      onSwipedRight: () => !appDrawerOpen && setAppDrawerOpen(true),
+      trackMouse: true
+  });
+
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
         <BrowserRouter>
           <AppDrawer open={appDrawerOpen} onClose={() => setAppDrawerOpen(false)}/>
         </BrowserRouter>
-        <Box sx={{display: 'flex', width: '100%', backgroundColor: theme => theme.palette.background.default }}>
+        <Box sx={{display: 'flex', width: '100%', backgroundColor: theme => theme.palette.background.default }} {...handlers}>
           <Box component="main" sx={{ flexGrow: 1 }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs 

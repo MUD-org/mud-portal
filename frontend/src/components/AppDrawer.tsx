@@ -1,9 +1,23 @@
-import React, {useRef} from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from 'react';
 import './AppDrawer.css'; // Import your CSS file
-import CancelIcon from '@mui/icons-material/Cancel';
-import { Stack, Box, Divider, List, ListItem, ListItemButton, ListItemText, SwipeableDrawer, Typography, IconButton } from '@mui/material';
+import { AppBar, Dialog, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Slide, Toolbar } from '@mui/material';
+import { TransitionProps } from '@mui/material/transitions';
+import CloseIcon from '@mui/icons-material/Close';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import AppRouter from '../routes/AppRouter';
+
+const Transition = React.forwardRef(function Transition(
+    props: TransitionProps & {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      children: React.ReactElement<any, any>;
+    },
+    ref: React.Ref<unknown>,
+  ) {
+    return <Slide direction="right" ref={ref} {...props} />;
+  });
 
 interface AppDrawerProps {
     open: boolean;
@@ -11,78 +25,55 @@ interface AppDrawerProps {
 }
 
 const AppDrawer: React.FC<AppDrawerProps> = ({open, onClose}) => {
-    const drawerRef = useRef<HTMLDivElement>(null);
-    const location = useLocation();
-    const navigate = useNavigate();
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md')); // 'md' is typically the breakpoint for desktop screens
 
-    const appContentWidth = () => {
-        if (!open)
-            return 0;
-        return `calc(100% - ${(drawerRef?.current?.getBoundingClientRect().width || 0) + 60}px)`;
-    }
 
     return (
-        <div className="app-drawer">
-            <SwipeableDrawer
-                anchor="left"
+        <div style={{ display: 'flex'}}>
+            <Dialog
                 open={open}
-                onClose={() => onClose}
-                onOpen={() => ""}>
-                <Stack ref={drawerRef}>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => navigate('/client')}>
-                                <ListItemText primary="Client (Debug)" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={() => navigate('/featured')}>
-                                <ListItemText primary="Featured Games" />
-                            </ListItemButton>
-                        </ListItem>
-                    <Divider/>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                        ))}
-                    </List>
-                    <Divider />
-                    <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                        ))}
-                    </List>
-                </Stack>
-            </SwipeableDrawer>
-            { open && location.pathname !== '/client'
-                ? (
-                    <Box
-                        className="content"
+                TransitionComponent={Transition}
+                keepMounted
+                fullScreen
+                onClose={onClose}>
+                <AppBar sx={{ position: 'relative', zIndex: theme.zIndex.drawer + 1 }}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            onClick={onClose}
+                            aria-label="close"
+                            >
+                            <CloseIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                {isDesktop && (
+                    <Drawer
+                        variant="permanent"
+                        open
                         sx={{
-                            left: drawerRef?.current?.getBoundingClientRect().width || 0, 
-                            width: appContentWidth(),
-                            backgroundColor: theme => theme.palette.background.default
-                        }}>
-                            <Stack 
-                                direction="row" 
-                                justifyContent="space-between" 
-                                alignItems="center">
-                                <span></span>
-                                <IconButton onClick={() => onClose?.()} color="secondary">
-                                    <CancelIcon />
-                                </IconButton>
-                            </Stack>
-                            <AppRouter/>
-                    </Box>
-                )
-                : null}
+                            width: 240,
+                            flexShrink: 0,
+                            [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                        }}
+                    >
+                        <Toolbar /> {/* This adds spacing at the top equal to the AppBar's height */}
+                        <List>
+                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                                <ListItem button key={text}>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Drawer>
+                )}
+                <AppRouter/>
+            </Dialog>
         </div>
     );
 };

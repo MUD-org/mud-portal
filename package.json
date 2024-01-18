@@ -1,0 +1,16 @@
+{
+  "name": "mud-portal",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "pnpm --parallel --stream -r run dev"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@tsconfig/node20": "^20.1.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -1,0 +1,112 @@
+2024-01-16 16:37:46:3746 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-16 16:38:03:383 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-16 16:44:31:4431 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-16 16:46:59:4659 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-16 16:51:48:5148 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-16 16:52:34:5234 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 01:49:59:4959 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 01:53:48:5348 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 02:24:26:2426 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:16:43:1643 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:19:22:1922 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:19:46:1946 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:20:07:207 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:20:19:2019 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:20:45:2045 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:20:57:2057 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:21:18:2118 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:22:01:221 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:22:36:2236 [31merror[39m: [31minvalid signature[39m
+2024-01-17 03:23:53:2353 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:23:56:2356 [31merror[39m: [31minvalid signature[39m
+2024-01-17 03:24:24:2424 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:24:26:2426 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImlhdCI6MTcwNTQ5MDYzNiwiZXhwIjoxNzA1NjYzNDM2fQ.0k2AEwXtxq1wR8Z4cyds8lVvYuYzC9h38CbO-lGh8lc[39m
+2024-01-17 03:24:26:2426 [37mdebug[39m: [37m{ name: 'test', iat: 1705490636, exp: 1705663436 }[39m
+2024-01-17 03:25:09:259 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImlhdCI6MTcwNTQ5MDY2NiwiZXhwIjoxNzA1NjYzNDY2fQ.uf_XY3QrCYVbpPydgN3pegEeqoryKqpzuW6O5QKLoi4[39m
+2024-01-17 03:25:09:259 [37mdebug[39m: [37m{ name: 'test', iat: 1705490666, exp: 1705663466 }[39m
+2024-01-17 03:33:13:3313 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:33:55:3355 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:34:57:3457 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:35:06:356 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:35:24:3524 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:37:37:3737 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:38:10:3810 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:38:52:3852 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:40:36:4036 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:48:00:480 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:48:42:4842 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:53:12:5312 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:56:54:5654 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:57:34:5734 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:57:37:5737 [37mdebug[39m: [37m[37mdebug[37m[39m
+2024-01-17 03:58:04:584 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 03:58:07:587 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDU0OTI2NTcsImV4cCI6MTcwNTY2NTQ1N30.AkhEBcczkMZkzZX_MMZjRmNw5VOrIV6iaUfAKGpx99E[39m
+2024-01-17 03:58:07:587 [37mdebug[39m: [37m{ iat: 1705492657, exp: 1705665457 }[39m
+2024-01-17 04:02:13:213 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:05:57:557 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:08:29:829 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:08:40:840 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:08:44:844 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDU0OTI2ODcsImV4cCI6MTcwNTY2NTQ4N30.Azk2TxS4OBY5epoFT7ACc5cyZRU6jvVFFrkUsb5fVLk[39m
+2024-01-17 04:08:44:844 [37mdebug[39m: [37m{ iat: 1705492687, exp: 1705665487 }[39m
+2024-01-17 04:08:52:852 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImVtYWlsIjoiYXNkYXNkc2EiLCJpYXQiOjE3MDU0OTMzMjQsImV4cCI6MTcwNTY2NjEyNH0.ZRz-S0ZcwrGL6RXGPkojYK8Bj5JRoNmuEBIACRHWeGo[39m
+2024-01-17 04:08:52:852 [37mdebug[39m: [37m{ name: 'test', email: 'asdasdsa', iat: 1705493324, exp: 1705666124 }[39m
+2024-01-17 04:11:08:118 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:11:12:1112 [37mdebug[39m: [37meyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImVtYWlsIjoiYXNkYXNkc2EiLCJpYXQiOjE3MDU0OTMzMzIsImV4cCI6MTcwNTY2NjEzMn0.hPemU6WwUaKmM4oUbFGP1b5CEVPTQDXny89s1B_yVzE[39m
+2024-01-17 04:11:12:1112 [37mdebug[39m: [37m{ name: 'test', email: 'asdasdsa', iat: 1705493332, exp: 1705666132 }[39m
+2024-01-17 04:11:48:1148 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:13:17:1317 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:13:55:1355 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:20:04:204 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:20:45:2045 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:22:19:2219 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:22:35:2235 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:24:33:2433 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:25:46:2546 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:25:50:2550 [37mdebug[39m: [37m{[39m
+[37m  name: 'test',[39m
+[37m  email: 'Meowmeowmeow?',[39m
+[37m  audiences: [ 'http://localhost:3000]' ][39m
+[37m}[39m
+2024-01-17 04:26:22:2622 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:27:19:2719 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:27:21:2721 [37mdebug[39m: [37m{[39m
+[37m  name: 'test',[39m
+[37m  email: 'Meowmeowmeow?',[39m
+[37m  audiences: [ 'http://localhost:3000' ][39m
+[37m}[39m
+2024-01-17 04:28:44:2844 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:28:46:2846 [37mdebug[39m: [37m{[39m
+[37m  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImVtYWlsIjoiTWVvd21lb3dtZW93PyIsImF1ZGllbmNlcyI6WyJodHRwOi8vbG9jYWxob3N0OjMwMDAiXSwiaWF0IjoxNzA1NDk0NTI2LCJleHAiOjE3MDU2NjczMjZ9.yquOYAolIKwnvoU6LnpcKRA9LEBnNiPvgDtrepU79WM'[39m
+[37m}[39m
+2024-01-17 04:29:22:2922 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:29:25:2925 [37mdebug[39m: [37m{[39m
+[37m  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImVtYWlsIjoiTWVvd21lb3dtZW93PyIsImF1ZGllbmNlcyI6WyJodHRwOi8vbG9jYWxob3N0OjMwMDAiXSwiaWF0IjoxNzA1NDk0NTY1LCJleHAiOjE3MDU2NjczNjV9.lFZxD0RWQbSDc7KIvuVh0piiiTAf45aFMYCKTOIRqwU'[39m
+[37m}[39m
+2024-01-17 04:29:56:2956 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:33:13:3313 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 04:37:16:3716 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:07:10:710 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:25:46:2546 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:30:24:3024 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:36:44:3644 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:40:24:4024 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:46:24:4624 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:48:10:4810 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:49:35:4935 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:49:46:4946 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:52:18:5218 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:53:58:5358 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 16:55:53:5553 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 19:11:59:1159 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 19:12:31:1231 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:03:02:32 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:05:18:518 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:10:32:1032 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:12:42:1242 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:17:34:1734 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:19:10:1910 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:19:46:1946 [32minfo[39m: [32mApplication started on port 3000![39m
+2024-01-17 20:33:12:3312 [37mdebug[39m: [37mConnection established.[39m
+2024-01-17 20:33:12:3312 [37mdebug[39m: [37mConnection established.[39m
+2024-01-17 20:33:31:3331 [37mdebug[39m: [37mConnection established.[39m
+2024-01-17 20:33:31:3331 [37mdebug[39m: [37mConnection established.[39m

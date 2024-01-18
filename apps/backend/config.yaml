@@ -1,0 +1,10 @@
+server:
+  name: 'http://localhost:3000'          # This is the 'local audience' or public address the server is named
+  port: 3000                             # This is the port the expressJS server will bind to.
+
+cors:
+  origin: ['http://localhost:5173']      # Requests from these origins are allowed.
+
+auth:
+  tokenSecret: 'app_secret_here'         # This is the secret used for signing JWTs by the server.
+  audiences: ['http://localhost:3000']  # The audiences we attach to the JWT token.

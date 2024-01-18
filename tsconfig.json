@@ -1,0 +1,4 @@
+// mud-portal/tsconfig.json
+{
+  "extends": "./tsconfig.base.json"
+}

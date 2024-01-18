@@ -31,7 +31,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
         profilePicture: ''
       };
       setUser(newUser);
-      console.log(newUser);
     })
   };
 

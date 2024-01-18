@@ -52,8 +52,8 @@ io.use((socket: Socket, next: any) => {
   });
 })
 
-io.on("connection", (_socket: Socket) => {
-  log.debug(`Connection established.`);
+io.on("connection", (socket: Socket) => {
+  log.debug(`Connection established by socket ID ${socket.id}.`);
 });
 // End WIP Socket Code
 

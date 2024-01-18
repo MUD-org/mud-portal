@@ -20,30 +20,38 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
     const { user } = useUser();
 
     const socket: Socket | null = useMemo(() => {
-        // Ensure the user and the JWT token are present
-        if (!user || !user.token) return null;
+        if (!user || !user.token) {
+            console.log("No user or token, not creating socket");
+            return null;
+        }
 
+        console.log("Creating new socket instance");
+
+        // Create the new socket instance
         const newSocket = io('localhost:3000', {
             auth: {
                 token: user.token,
             },
-            // additional options if needed
-        });
-
-        newSocket.on("connection", () => {
-            console.log("connection established");
+            autoConnect: false
         });
 
         return newSocket;
-    }, [user?.token]); // Depend on jwtToken
+    }, [user?.token]);
 
     useEffect(() => {
         if (socket) {
+            console.log("Connecting to socket");
+
             // Establish socket connection
             socket.connect();
 
+            socket.on('connect', () => {
+                console.log('Connected to socket server');
+            });
+
             // Clean up on unmount or token change
             return () => {
+                console.log("Disconnecting socket");
                 socket.disconnect();
             };
         }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -12,14 +13,20 @@ import Typography from '@mui/material/Typography';
 import { useAPI } from '../contexts/APIContext';
 import { useUser } from '../contexts/UserContext';
 
-export default function LoginPage() {
+const LoginPage: React.FC = () => {
   const api = useAPI();
   const user = useUser();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    user.login(api, data);
+    try {
+      await user.login(api, data);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -86,3 +93,5 @@ export default function LoginPage() {
     </Box>
   );
 }
+
+export default LoginPage;

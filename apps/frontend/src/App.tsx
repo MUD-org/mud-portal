@@ -6,11 +6,11 @@ import { SocketProvider } from "./contexts/SocketContext";
 function App() {
   return (
     <UserProvider>
-      <APIProvider>
-        <SocketProvider>
+      <SocketProvider>
+        <APIProvider>
           <PortalRouter />
-        </SocketProvider>
-      </APIProvider>
+        </APIProvider>
+      </SocketProvider>
     </UserProvider>
   );
 }

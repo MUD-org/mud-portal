@@ -3,7 +3,7 @@ server:
   port: 3000                             # This is the port the expressJS server will bind to.
 
 cors:
-  origin: ['http://localhost:5173']      # Requests from these origins are allowed.
+  origin: ['http://localhost:4000', 'http://localhost:5000']      # Requests from these origins are allowed.
 
 auth:
   tokenSecret: 'app_secret_here'         # This is the secret used for signing JWTs by the server.

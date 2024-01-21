@@ -18,6 +18,8 @@ export interface LoginResponse {
 export class AuthService {
   public async ssoLogin(sso: uuidv4) : Promise<LoginResponse> {
     const response = ssoCache.get(sso);
+    if (!response)
+      throw new ApiError('InvalidSSOToken', 400, "The provided SSO token has expired or is not valid.");
     ssoCache.expire(sso);
     return response;
   }

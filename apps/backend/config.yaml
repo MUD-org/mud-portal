@@ -8,3 +8,10 @@ cors:
 auth:
   tokenSecret: 'app_secret_here'         # This is the secret used for signing JWTs by the server.
   audiences: ['http://localhost:3000']  # The audiences we attach to the JWT token.
+
+database:
+  name: 'portal'
+  host: '192.168.1.50'
+  port: 5432
+  user: 'bitmuse'
+  password: 'this-is-a-dumb-password'

@@ -9,7 +9,8 @@
     "dev": "npx concurrently \"npx nodemon\" \"npx nodemon -x tsoa spec-and-routes\"",
     "lint": "npx eslint \"src/**.ts\" --fix",
     "swagger": "npx tsoa spec",
-    "test": "npx jest"
+    "test": "npx jest",
+    "build-schema": "node buildSchema.js"
   },
   "author": "",
   "license": "ISC",

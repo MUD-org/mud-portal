@@ -38,6 +38,9 @@ export interface RegisterRequest {
   email: string
 }
 
+const emailValidator = require("email-validator");
+const usernameValidator = new RegExp('[a-zA-Z0-9]+');
+
 @Route("users")
 export class UserController extends Controller {
   @Post("/login")
@@ -52,11 +55,24 @@ export class UserController extends Controller {
   }
 
   @Response<ApiError>(400, "UserExists")
+  @Response<ApiError>(400, 'EmailInvalid')
+  @Response<ApiError>(400, 'UsernameInvalid')
+  @Response<ApiError>(400, 'PasswordInvalid')
   @Post("/register")
   public async register(
     @Body() req: RegisterRequest
   ): Promise<LoginResponse> {
-    // Create the user...
+    // Validation; todo: find a library to do this?
+    if (!req.email || !emailValidator.validate(req.email))
+      throw new ApiError('EmailInvalid', 400, 'Email address is a required field and must be valid.');
+    if (!req.username || !usernameValidator.test(req.username))
+      throw new ApiError('UsernameInvalid', 400, 'Username is a required field and must be valid.');
+    if (req.username.length < 3 || req.username.length > 20)
+      throw new ApiError('UsernameInvalid', 400, 'Username must be at least 3 characters and less than 20 characters.');
+    if (!req.password || req.password.length < 6 || req.password.length > 20)
+      throw new ApiError('PasswordInvalid', 400, "Password is a required field and must be between 6 and 20 characters.");
+    
+      // Create the user...
     const user = await new UserService().add(
       req.email,
       req.username,

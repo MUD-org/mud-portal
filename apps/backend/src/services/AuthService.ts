@@ -1,12 +1,14 @@
+import { v4 as uuidv4 } from 'uuid';
+import jwt from 'jsonwebtoken';
 import { ApiError } from "../ApiError";
 import { Users, UserTokens } from "../__generated__";
 import { UserService } from "./UserService";
 import db, {user_tokens} from '../database';
-import jwt from 'jsonwebtoken';
 import config from "../config";
-
+import { TimeExpiringDictionary } from '../utils/TimeExpiringDictionary';
 
 const bcrypt = require('bcrypt');
+const ssoCache = new TimeExpiringDictionary<LoginResponse>();
 
 export interface LoginResponse {
   jwt: string,
@@ -14,9 +16,15 @@ export interface LoginResponse {
 }
 
 export class AuthService {
-  public async login(usernameOrEmail: string, raw_password: string);
-  public async login(user: Users, raw_password: string);
-  public async login(a: Users|string, raw_password: string) {
+  public async ssoLogin(sso: uuidv4) : Promise<LoginResponse> {
+    const response = ssoCache.get(sso);
+    ssoCache.expire(sso);
+    return response;
+  }
+
+  public async login(usernameOrEmail: string, raw_password: string) : Promise<LoginResponse>;
+  public async login(user: Users, raw_password: string)             : Promise<LoginResponse>;
+  public async login(a: Users|string, raw_password: string)         : Promise<LoginResponse> {
     let user: Users = typeof a === 'string' 
       ? await new UserService().get(a)
       : a;
@@ -39,5 +47,16 @@ export class AuthService {
         }),
         token
     };
+  }
+
+  /**
+   * Produces a valid SSO token that can be used for one login; good for a few seconds.
+   * @param lr A valid login-response; likely provided by login()
+   * @returns The single sign-on token
+   */
+  public async produceSso(lr: LoginResponse) : Promise<uuidv4> {
+    const sso = uuidv4();
+    ssoCache.set(sso, lr, 30);
+    return sso;
   }
 }

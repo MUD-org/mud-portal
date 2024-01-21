@@ -1,11 +1,13 @@
-import { Post, Route, Body, Controller } from "tsoa";
-import jwt from 'jsonwebtoken';
-import config from '../config';
+import { Post, Route, Body, Controller, Request, Response } from "tsoa";
+import express from 'express';
+import { ApiError } from "../ApiError";
+import { UserService } from "../services/UserService";
+import { AuthService } from "../services/AuthService";
 
 export interface LoginResponse {
   /**
-   * The JSON Web Token used to authenticate further requests by the user.
-   * @example "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+   * The token used to authenticate against the socket.io layer;
+   * as well as the token used to refresh for new JWTs.
    */
   token: string
 }
@@ -39,20 +41,33 @@ export interface RegisterRequest {
 @Route("users")
 export class UserController extends Controller {
   @Post("/login")
-  public async login(
-    @Body() requestBody: LoginRequest
+  public async loginUser(
+    @Request() req: express.Request
   ): Promise<LoginResponse> {
+    const auth = await new AuthService().login(req.body.username, req.body.password);
+    this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly`);
     return {
-      token: jwt.sign({ name: 'test', email: requestBody.email, audiences: config.auth.audiences }, config.auth.tokenSecret, { expiresIn: '2 days', algorithm: "HS256" })
-    };
+      token: auth.token.token
+    }
   }
 
+  @Response<ApiError>(400, "UserExists")
   @Post("/register")
   public async register(
-    @Body() requestBody: RegisterRequest
+    @Body() req: RegisterRequest
   ): Promise<LoginResponse> {
+    // Create the user...
+    const user = await new UserService().add(
+      req.email,
+      req.username,
+      req.password
+    );
+
+    // Create auth for them.
+    const auth = await new AuthService().login(user, req.password);
+    this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly`);
     return {
-      token: jwt.sign({ name: 'test', email: requestBody.email, audiences: config.auth.audiences }, config.auth.tokenSecret, { expiresIn: '2 days', algorithm: "HS256" })
-    };
+      token: auth.token.token
+    }
   }
 }

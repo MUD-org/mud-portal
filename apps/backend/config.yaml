@@ -15,3 +15,6 @@ database:
   port: 5432
   user: 'bitmuse'
   password: 'this-is-a-dumb-password'
+
+crypto:
+  saltRounds: 10

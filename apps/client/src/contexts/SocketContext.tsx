@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
 import io, { Socket } from 'socket.io-client';
-import { useUser } from './UserContext';
+import { useUser } from '@mud-portal/frontend/src/contexts/UserContext';
 
 interface SocketContextType {
     socket: Socket | null;

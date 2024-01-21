@@ -1,1 +1,75 @@
-[]
+[
+  {
+    "name": "user_tokens",
+    "columns": [
+      {
+        "name": "expires_on",
+        "isNullable": false,
+        "hasDefault": false,
+        "typeId": 20,
+        "typeName": "BIGINT"
+      },
+      {
+        "name": "token",
+        "isNullable": false,
+        "hasDefault": false,
+        "typeId": 1043,
+        "typeName": "VARCHAR"
+      },
+      {
+        "name": "user_id",
+        "isNullable": false,
+        "hasDefault": false,
+        "typeId": 23,
+        "typeName": "INTEGER"
+      }
+    ]
+  },
+  {
+    "name": "users",
+    "columns": [
+      {
+        "name": "created_on",
+        "isNullable": false,
+        "hasDefault": false,
+        "typeId": 20,
+        "typeName": "BIGINT"
+      },
+      {
+        "name": "email",
+        "isNullable": true,
+        "hasDefault": false,
+        "typeId": 16391,
+        "typeName": "CITEXT"
+      },
+      {
+        "name": "id",
+        "isNullable": false,
+        "hasDefault": true,
+        "typeId": 23,
+        "typeName": "INTEGER"
+      },
+      {
+        "name": "password_hash",
+        "isNullable": false,
+        "hasDefault": false,
+        "typeId": 1043,
+        "typeName": "VARCHAR"
+      },
+      {
+        "name": "profile_picture",
+        "isNullable": true,
+        "hasDefault": false,
+        "typeId": 1043,
+        "typeName": "VARCHAR"
+      },
+      {
+        "name": "username",
+        "isNullable": true,
+        "hasDefault": false,
+        "typeId": 16391,
+        "typeName": "CITEXT"
+      }
+    ]
+  }
+]

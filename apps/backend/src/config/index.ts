@@ -16,6 +16,16 @@ interface Config {
     tokenSecret: string,
     audiences: Array<string>
   };
+  database: {
+    host: string,
+    port: number,
+    user: string,
+    password: string,
+    name: string
+  };
+  crypto: {
+    saltRounds: number
+  };
 }
 
 const file = fs.readFileSync('config.yaml', 'utf8');

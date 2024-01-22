@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as jwt from "jsonwebtoken";
+import config from './config';
 
 export function expressAuthentication(
   request: express.Request,
@@ -30,7 +31,7 @@ export function expressAuthentication(
       if (!token) {
         reject(new Error("No token provided"));
       }
-      jwt.verify(token, "[secret]", function (err: any, decoded: any) {
+      jwt.verify(token, config.auth.tokenSecret, function (err: any, decoded: any) {
         if (err) {
           reject(err);
         } else {

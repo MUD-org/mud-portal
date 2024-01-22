@@ -3,7 +3,7 @@
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/**/*Controller.ts"],
   "spec": {
-    "outputDirectory": "dist",
+    "outputDirectory": "public",
     "specVersion": 3,
     "securityDefinitions": {
         "api_key": {

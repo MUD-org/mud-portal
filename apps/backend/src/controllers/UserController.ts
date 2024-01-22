@@ -1,26 +1,29 @@
-import { Post, Route, Body, Controller, Request, Response } from "tsoa";
-import express from 'express';
+import { Get, Post, Route, Body, Controller, Request, Response } from "tsoa";
 import { ApiError } from "../ApiError";
 import { UserService } from "../services/UserService";
 import { AuthService } from "../services/AuthService";
 
-export interface LoginResponse {
+export interface AuthenticationResponse {
   /**
-   * The token used to authenticate against the socket.io layer;
-   * as well as the token used to refresh for new JWTs.
+   * If an SSO token is requested, this will be populated with an SSO token
+   * that can be used to authenticate once.
    */
-  token: string
+  ssoToken?: string;
 }
 
 export interface LoginRequest {
   /**
-   * The email the user used to register their account.
+   * The email/username the user used to register their account.
    */
-  email: string,
+  emailOrUsername: string,
   /**
    * The plaintext password the user uses to login.
    */
-  password: string
+  password: string,
+  /**
+   * If set to true, an SSO will be returned on login
+   */
+  ssoRequest?: boolean
 }
 
 export interface RegisterRequest {
@@ -35,7 +38,16 @@ export interface RegisterRequest {
   /**
    * The email the user wishes to receive notifications on
    */
-  email: string
+  email: string,
+  /**
+   * If set to true, an SSO will be returned on login
+   */
+  ssoRequest?: boolean
+}
+
+export interface UserInfoResponse {
+  username: string,
+  profilePicture: string
 }
 
 const emailValidator = require("email-validator");
@@ -43,15 +55,25 @@ const usernameValidator = new RegExp('[a-zA-Z0-9]+');
 
 @Route("users")
 export class UserController extends Controller {
+  @Get("/info/{userId}")
+  public async getUserInfo() : Promise<UserInfoResponse> {
+    return {
+      username: 'testeroni',
+      profilePicture: ''
+    }
+  }
+
+  @Response<ApiError>(401, "InvalidPassword")
   @Post("/login")
   public async loginUser(
-    @Request() req: express.Request
-  ): Promise<LoginResponse> {
-    const auth = await new AuthService().login(req.body.username, req.body.password);
+    @Request() req: LoginRequest
+  ): Promise<AuthenticationResponse> {
+    const auth = await new AuthService().login(req.emailOrUsername, req.password);
+    const response: AuthenticationResponse = {};
+    if (req.ssoRequest)
+      response.ssoToken = await new AuthService().produceSso(auth);
     this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly`);
-    return {
-      token: auth.token.token
-    }
+    return response;
   }
 
   @Response<ApiError>(400, "UserExists")
@@ -61,7 +83,7 @@ export class UserController extends Controller {
   @Post("/register")
   public async register(
     @Body() req: RegisterRequest
-  ): Promise<LoginResponse> {
+  ): Promise<AuthenticationResponse> {
     // Validation; todo: find a library to do this?
     if (!req.email || !emailValidator.validate(req.email))
       throw new ApiError('EmailInvalid', 400, 'Email address is a required field and must be valid.');
@@ -72,6 +94,7 @@ export class UserController extends Controller {
     if (!req.password || req.password.length < 6 || req.password.length > 20)
       throw new ApiError('PasswordInvalid', 400, "Password is a required field and must be between 6 and 20 characters.");
     
+    const response: AuthenticationResponse = {};
       // Create the user...
     const user = await new UserService().add(
       req.email,
@@ -82,8 +105,8 @@ export class UserController extends Controller {
     // Create auth for them.
     const auth = await new AuthService().login(user, req.password);
     this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly`);
-    return {
-      token: auth.token.token
-    }
+    if (req.ssoRequest)
+      response.ssoToken = await new AuthService().produceSso(auth);
+    return response;
   }
 }

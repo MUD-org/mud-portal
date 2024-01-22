@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -17,12 +17,21 @@ const LoginPage: React.FC = () => {
   const api = useAPI();
   const user = useUser();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    // if we have a ?sso=<url> query param, we need to ask for SSO details
+    const ssoRedirect = queryParams.get('sso');
+    if (ssoRedirect)
+      data.set('sso', "true");
     try {
-      await user.login(api, data);
+      const loginResponse = await user.login(api, data);
+      if (ssoRedirect)
+        return navigate(`${ssoRedirect}?sso=${loginResponse.ssoToken}`);
       navigate('/');
     } catch (error) {
       console.error(error);

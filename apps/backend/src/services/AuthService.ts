@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid';
 import jwt from 'jsonwebtoken';
 import { ApiError } from "../ApiError";
-import { Users, UserTokens } from "../__generated__";
+import { Users } from "../__generated__";
 import { UserService } from "./UserService";
-import db, {user_tokens} from '../database';
 import config from "../config";
 import { TimeExpiringDictionary } from '../utils/TimeExpiringDictionary';
 
@@ -11,8 +10,7 @@ const bcrypt = require('bcrypt');
 const ssoCache = new TimeExpiringDictionary<LoginResponse>();
 
 export interface LoginResponse {
-  jwt: string,
-  token: UserTokens
+  jwt: string
 }
 
 export class AuthService {
@@ -30,24 +28,23 @@ export class AuthService {
     let user: Users = typeof a === 'string' 
       ? await new UserService().get(a)
       : a;
+    if (!user)
+      throw new ApiError('NoUser', 400, 'No user exists by that id.');
 
     if (!await bcrypt.compare(raw_password, user.password_hash))
       throw new ApiError('IncorrectPassword', 401, 'Password was not correct.');
 
-    const token = await user_tokens(db).insert({user_id: user.id, token: 'ranodm guid', expires_on: Date.now()})[0];
     return {
       jwt: jwt.sign(
         { 
           subject: user.id,
-          audiences: config.auth.audiences,
-          refresh: token.token
+          audiences: config.auth.audiences
         }, 
         config.auth.tokenSecret, 
         { 
           expiresIn: '2 days', 
           algorithm: "HS256" 
-        }),
-        token
+        })
     };
   }
 

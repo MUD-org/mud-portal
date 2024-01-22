@@ -7,34 +7,47 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"LoginResponse": {
-				"properties": {
-					"token": {
-						"type": "string",
-						"description": "The JSON Web Token used to authenticate further requests by the user.",
-						"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-					}
-				},
-				"required": [
-					"token"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"LoginRequest": {
+			"UserInfoResponse": {
 				"properties": {
 					"username": {
-						"type": "string",
-						"description": "The username the user used to register their account."
+						"type": "string"
 					},
-					"password": {
-						"type": "string",
-						"description": "The plaintext password the user uses to login."
+					"profilePicture": {
+						"type": "string"
 					}
 				},
 				"required": [
 					"username",
-					"password"
+					"profilePicture"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AuthenticationResponse": {
+				"properties": {
+					"ssoToken": {
+						"type": "string",
+						"description": "If an SSO token is requested, this will be populated with an SSO token\r\nthat can be used to authenticate once."
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiError": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					},
+					"stack": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"message"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -52,6 +65,10 @@
 					"email": {
 						"type": "string",
 						"description": "The email the user wishes to receive notifications on"
+					},
+					"ssoRequest": {
+						"type": "boolean",
+						"description": "If set to true, an SSO will be returned on login"
 					}
 				},
 				"required": [
@@ -63,10 +80,16 @@
 				"additionalProperties": false
 			}
 		},
-		"securitySchemes": {}
+		"securitySchemes": {
+			"api_key": {
+				"type": "apiKey",
+				"name": "access_token",
+				"in": "query"
+			}
+		}
 	},
 	"info": {
-		"title": "backend",
+		"title": "@mud-portal/backend",
 		"version": "1.0.0",
 		"license": {
 			"name": "ISC"
@@ -74,33 +97,75 @@
 		"contact": {}
 	},
 	"paths": {
-		"/users/login": {
+		"/worlds/connect": {
 			"post": {
-				"operationId": "Login",
+				"operationId": "Connect",
 				"responses": {
 					"200": {
 						"description": "Ok",
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/LoginResponse"
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/users/info/{userId}": {
+			"get": {
+				"operationId": "GetUserInfo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserInfoResponse"
 								}
 							}
 						}
 					}
 				},
 				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/LoginRequest"
+				"parameters": []
+			}
+		},
+		"/users/login": {
+			"post": {
+				"operationId": "LoginUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/AuthenticationResponse"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "InvalidPassword",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiError"
+								}
 							}
 						}
 					}
-				}
+				},
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/users/register": {
@@ -112,7 +177,17 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/LoginResponse"
+									"$ref": "#/components/schemas/AuthenticationResponse"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "PasswordInvalid",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiError"
 								}
 							}
 						}

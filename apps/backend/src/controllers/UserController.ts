@@ -1,4 +1,4 @@
-import { Get, Post, Route, Body, Controller, Response } from "tsoa";
+import { Get, Post, Route, Body, Controller, Response, Security } from "tsoa";
 import { ApiError } from "../ApiError";
 import { UserService } from "../services/UserService";
 import { AuthService } from "../services/AuthService";
@@ -60,6 +60,7 @@ const usernameValidator = new RegExp('[a-zA-Z0-9]+');
 @Route("users")
 export class UserController extends Controller {
   @Get("/info/{userId}")
+  @Security("jwt")
   public async getUserInfo() : Promise<UserInfoResponse> {
     return {
       username: 'testeroni',
@@ -76,7 +77,7 @@ export class UserController extends Controller {
     const response: AuthenticationResponse = {};
     if (req.ssoRequest)
       response.ssoToken = await new AuthService().produceSso(auth);
-    this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly`);
+    this.setHeader('Set-Cookie', `token=${auth.jwt}; HttpOnly; Max-Age=3600`);
     return response;
   }
 

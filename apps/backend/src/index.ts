@@ -5,12 +5,15 @@ import config from './config';
 import { RegisterRoutes } from "../lib/routes";
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 
 const app: Express = express();
 app.use(cors({
-  origin: config.cors.origin
+  origin: config.cors.origin,
+  credentials: true
 }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.static("public"));
 
 // Swagger /docs page for API documentation

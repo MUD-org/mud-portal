@@ -24,9 +24,7 @@ export function expressAuthentication(
 
   if (securityName === "jwt") {
     const token =
-      request.body.token ||
-      request.query.token ||
-      request.headers["x-access-token"];
+      request?.cookies?.token;
 
     return new Promise((resolve, reject) => {
       if (!token) {

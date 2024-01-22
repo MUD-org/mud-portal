@@ -11,6 +11,7 @@ interface UserContextProps {
   user: UserSession | null;
   login: (api: AxiosInstance, data: FormData) => Promise<AuthenticationResponse>;
   register: (api: AxiosInstance, data: FormData) => Promise<AuthenticationResponse>;
+  getUserInfo: (api: AxiosInstance) => Promise<void>;
 }
 
 // Create context
@@ -19,6 +20,18 @@ const UserContext = createContext<UserContextProps>({} as UserContextProps);
 // UserProvider component
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<UserSession | null>(null);
+
+  const getUserInfo = async (api: AxiosInstance): Promise<void> => {
+    const userId = 1;
+    const infoResponse = await api.get<UserInfoResponse>(`http://localhost:3000/users/info/${userId}`);
+    const newUser = {
+      id: userId,
+      username: infoResponse.data.username,
+      profilePicture: infoResponse.data.profilePicture
+    };
+    setUser(newUser);
+    console.log(newUser);
+  };
 
   const login = async (api: AxiosInstance, data: FormData): Promise<AuthenticationResponse> => {
     const loginResponse = await api.post<AuthenticationResponse>("http://localhost:3000/users/login", {
@@ -32,15 +45,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
     
     // Now that we've logged in; let's fetch user information and assign it to our state.
-    const userId = 1;
-    const infoResponse = await api.get<UserInfoResponse>(`http://localhost:3000/users/info/${userId}`);
-    const newUser = {
-      id: userId,
-      username: infoResponse.data.username,
-      profilePicture: infoResponse.data.profilePicture
-    };
-    setUser(newUser);
-    console.log(newUser);
+    await getUserInfo(api);
     return loginResponse.data as AuthenticationResponse;
   };
 
@@ -61,7 +66,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, register }}>
+    <UserContext.Provider value={{ user, login, register, getUserInfo }}>
       {children}
     </UserContext.Provider>
   );

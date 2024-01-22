@@ -25,11 +25,9 @@ export class AuthService {
   public async login(usernameOrEmail: string, raw_password: string) : Promise<LoginResponse>;
   public async login(user: Users, raw_password: string)             : Promise<LoginResponse>;
   public async login(a: Users|string, raw_password: string)         : Promise<LoginResponse> {
-    console.log(a, raw_password);
     let user: Users = typeof a === 'string' 
       ? await new UserService().get(a)
       : a;
-    console.log(a);
     if (!user)
       throw new ApiError('NoUser', 400, 'No user exists by that id.');
 

@@ -23,7 +23,7 @@ export class UserService {
     emailOrUsername: string
   ) : Promise<Users> {
     const user = await users(db).findOne({email: emailOrUsername})
-      || await users(db).findOne({username: emailOrUsername});
+      || await users(db).findOne({username: emailOrUsername});    
     if (!user)
       throw new ApiError('UserDoesNotExist', 400, "No user exists with that username or email.");
     return user;

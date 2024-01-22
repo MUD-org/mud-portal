@@ -22,7 +22,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const login = async (api: AxiosInstance, data: FormData): Promise<AuthenticationResponse> => {
     const loginResponse = await api.post<AuthenticationResponse>("http://localhost:3000/users/login", {
-      email: data.get('email'),
+      emailOrUsername: data.get('email'),
       password: data.get('password'),
       ssoRequest: data.get('sso') === "true"
     });
@@ -46,10 +46,11 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   const register = async (api: AxiosInstance, data: FormData): Promise<AuthenticationResponse> => {
     const registerResponse = await api.post<AuthenticationResponse>("http://localhost:3000/users/register", {
+      username: data.get('username'),
       email: data.get('email'),
       password: data.get('password'),
       ssoRequest: data.get('sso') === "true",
-      birthday: new Date(Number(data.get('age-year')), Number(data.get('age-month')) - 1, Number(data.get('age-day')))
+      birthday: new Date(Number(data.get('age-year')), Number(data.get('age-month')) - 1, Number(data.get('age-day'))).valueOf() / 1000
     });
 
     if (data.get('sso') === "true") {

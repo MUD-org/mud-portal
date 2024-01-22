@@ -52,6 +52,28 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"LoginRequest": {
+				"properties": {
+					"emailOrUsername": {
+						"type": "string",
+						"description": "The email/username the user used to register their account."
+					},
+					"password": {
+						"type": "string",
+						"description": "The plaintext password the user uses to login."
+					},
+					"ssoRequest": {
+						"type": "boolean",
+						"description": "If set to true, an SSO will be returned on login"
+					}
+				},
+				"required": [
+					"emailOrUsername",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"RegisterRequest": {
 				"properties": {
 					"username": {
@@ -171,7 +193,17 @@
 					}
 				},
 				"security": [],
-				"parameters": []
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/LoginRequest"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/users/register": {

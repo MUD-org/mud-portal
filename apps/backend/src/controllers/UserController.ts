@@ -1,4 +1,4 @@
-import { Get, Post, Route, Body, Controller, Request, Response } from "tsoa";
+import { Get, Post, Route, Body, Controller, Response } from "tsoa";
 import { ApiError } from "../ApiError";
 import { UserService } from "../services/UserService";
 import { AuthService } from "../services/AuthService";
@@ -70,7 +70,7 @@ export class UserController extends Controller {
   @Response<ApiError>(401, "InvalidPassword")
   @Post("/login")
   public async loginUser(
-    @Request() req: LoginRequest
+    @Body() req: LoginRequest
   ): Promise<AuthenticationResponse> {
     const auth = await new AuthService().login(req.emailOrUsername, req.password);
     const response: AuthenticationResponse = {};

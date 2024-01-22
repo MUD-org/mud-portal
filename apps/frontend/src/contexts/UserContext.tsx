@@ -27,9 +27,6 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       ssoRequest: data.get('sso') === "true"
     });
 
-    if (loginResponse.status !== 200) {
-      throw new Error();
-    }
     if (data.get('sso') === "true") {
       return loginResponse.data as AuthenticationResponse;
     }

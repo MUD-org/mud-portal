@@ -26,6 +26,20 @@ app.use(
 
 RegisterRoutes(app);
 
+/**
+ * Error handling middleware
+ */
+app.use((err, _req, res, next) => {
+  const status = err.status || 500;
+    const body: any = {
+      fields: err.fields || undefined,
+      message: err.message || 'An error occurred during the request.',
+      name: err.name,
+      status
+    };
+    res.status(status).json(body);
+    next();
+})
 
 // WIP Socket Code
 import { createServer } from "http";

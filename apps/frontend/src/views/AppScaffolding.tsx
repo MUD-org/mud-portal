@@ -1,7 +1,8 @@
 import React from "react";
-import { AppBar, Avatar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Avatar, Box, Button, IconButton, Link, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import PortalRouter from "../router";
 import { useUser } from '../contexts/UserContext'; 
+import Notifications from "../components/Notifications";
 
 const pages = ['Home', 'Browse'];
 const settings = ['Logout'];
@@ -46,8 +47,8 @@ const AppScaffolding: React.FC = () => {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-          { (!user.user || !user.user.token)
-            ? (<Button variant="contained" color="info" size="large">Login</Button>)
+          { (!user.user)
+            ? (<Link href="/login"><Button variant="contained" color="info" size="large">Login</Button></Link>)
             : (<>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -81,6 +82,7 @@ const AppScaffolding: React.FC = () => {
           </Box>
         </Toolbar>
       </AppBar>
+      <Notifications/>
       <PortalRouter />
     </>
   );

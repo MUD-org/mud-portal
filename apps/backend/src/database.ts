@@ -11,7 +11,7 @@ const db = createConnectionPool(`postgres://${config.database.user}:${config.dat
 export default db;
 
 // You can list whatever tables you actually have here:
-const {users, user_tokens} = tables<DatabaseSchema>({
+const {users} = tables<DatabaseSchema>({
   databaseSchema: require('./__generated__/schema.json'),
 });
-export {users, user_tokens};
+export {users};

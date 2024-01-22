@@ -40,6 +40,10 @@ export interface RegisterRequest {
    */
   email: string,
   /**
+   * The time in unix epoch that is this user's birthday.
+   */
+  birthday: number,
+  /**
    * If set to true, an SSO will be returned on login
    */
   ssoRequest?: boolean
@@ -99,7 +103,8 @@ export class UserController extends Controller {
     const user = await new UserService().add(
       req.email,
       req.username,
-      req.password
+      req.password,
+      req.birthday
     );
 
     // Create auth for them.

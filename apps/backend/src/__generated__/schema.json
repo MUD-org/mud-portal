@@ -1,33 +1,14 @@
 [
   {
-    "name": "user_tokens",
+    "name": "users",
     "columns": [
       {
-        "name": "expires_on",
+        "name": "birthday",
         "isNullable": false,
         "hasDefault": false,
         "typeId": 20,
         "typeName": "BIGINT"
       },
-      {
-        "name": "token",
-        "isNullable": false,
-        "hasDefault": false,
-        "typeId": 1043,
-        "typeName": "VARCHAR"
-      },
-      {
-        "name": "user_id",
-        "isNullable": false,
-        "hasDefault": false,
-        "typeId": 23,
-        "typeName": "INTEGER"
-      }
-    ]
-  },
-  {
-    "name": "users",
-    "columns": [
       {
         "name": "created_on",
         "isNullable": false,

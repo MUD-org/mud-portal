@@ -9,13 +9,14 @@ export class UserService {
   public async add(
     email: string,
     username: string,
-    password: string
+    password: string,
+    birthday: number
   ): Promise<Users> {
     if (await users(db).findOne({email: email}))
       throw new ApiError("UserExists", 400, "A user exists with that email.");
     if (await users(db).findOne({username: username}))
       throw new ApiError("UserExists", 400, "A user exists with that username.");
-    return await users(db).insert({email, username, created_on: Date.now(), password_hash: await this.hash(password)})[0];
+    return await users(db).insert({email, username, birthday, created_on: Date.now(), password_hash: await this.hash(password)})[0];
   }
 
   public async get(

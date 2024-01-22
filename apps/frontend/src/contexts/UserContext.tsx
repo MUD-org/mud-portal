@@ -44,8 +44,19 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     return loginResponse.data as AuthenticationResponse;
   };
 
-  const register = async () => {
-    throw new Error();
+  const register = async (api: AxiosInstance, data: FormData): Promise<AuthenticationResponse> => {
+    const registerResponse = await api.post<AuthenticationResponse>("http://localhost:3000/users/register", {
+      email: data.get('email'),
+      password: data.get('password'),
+      ssoRequest: data.get('sso') === "true",
+      birthday: new Date(Number(data.get('age-year')), Number(data.get('age-month')) - 1, Number(data.get('age-day')))
+    });
+
+    if (data.get('sso') === "true") {
+      return registerResponse.data as AuthenticationResponse;
+    }
+
+    return await login(api, data);
   };
 
   return (

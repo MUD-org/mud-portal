@@ -66,6 +66,11 @@
 						"type": "string",
 						"description": "The email the user wishes to receive notifications on"
 					},
+					"birthday": {
+						"type": "number",
+						"format": "double",
+						"description": "The time in unix epoch that is this user's birthday."
+					},
 					"ssoRequest": {
 						"type": "boolean",
 						"description": "If set to true, an SSO will be returned on login"
@@ -74,7 +79,8 @@
 				"required": [
 					"username",
 					"password",
-					"email"
+					"email",
+					"birthday"
 				],
 				"type": "object",
 				"additionalProperties": false

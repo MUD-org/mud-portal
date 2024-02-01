@@ -27,7 +27,7 @@
 				"properties": {
 					"ssoToken": {
 						"type": "string",
-						"description": "If an SSO token is requested, this will be populated with an SSO token\r\nthat can be used to authenticate once."
+						"description": "If an SSO token is requested, this will be populated with an SSO token\nthat can be used to authenticate once."
 					}
 				},
 				"type": "object",

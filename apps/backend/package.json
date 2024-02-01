@@ -10,7 +10,8 @@
     "lint": "npx eslint \"src/**.ts\" --fix",
     "swagger": "npx tsoa spec",
     "test": "npx jest",
-    "build-schema": "node buildSchema.js"
+    "build-schema": "node buildSchema.js",
+    "prep": "npx tsoa spec-and-routes"
   },
   "author": "",
   "license": "ISC",
